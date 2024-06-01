@@ -38,9 +38,7 @@ class EnhancedMedian():
             return self.pad_size
         elif self.isNonExtremePixelExist(x, y, self.pad_size + 2):
             return self.pad_size + 2
-        elif self.isNonExtremePixelExist(x, y, self.pad_size + 4):
-            return self.pad_size + 4
-        return self.pad_size + 6
+        return self.pad_size + 4
 
     def findMinMax(self, x, y):
         min_intensity = 255
@@ -118,12 +116,12 @@ class EnhancedMedian():
                 self.image_copy[x, y] = int(repaired_intensity)
                 
     def cvMedian(self):
-        self.image_median = cv2.medianBlur(self.image_noisy, 9)
+        self.image_median = cv2.medianBlur(self.image_noisy, 7)
 
     def enhancedMedian(self, image_original, image_noisy, noise_level):
         self.image_original = cv2.imread(image_original, cv2.IMREAD_GRAYSCALE)
         self.image_noisy = cv2.imread(image_noisy, cv2.IMREAD_GRAYSCALE)
-        self.pad_size = 7
+        self.pad_size = 3
         self.padImage()
         self.image_copy = self.padded_img.copy()
 
@@ -136,7 +134,7 @@ class EnhancedMedian():
 
 if __name__ == "__main__":
     filter = EnhancedMedian()
-    noise_level = [10,20,30,40,45,50,60,70,80,90]
+    noise_level = [10,20,30,40,50,60,70,80,90]
     for i in range(len(noise_level)):
         filter.enhancedMedian('lena_original.png', f'Noisy/lena_noisy_{noise_level[i]}.png', noise_level[i])
         displayPlots(filter.image_list[-1])

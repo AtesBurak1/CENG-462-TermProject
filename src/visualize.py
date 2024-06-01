@@ -11,6 +11,8 @@ def displayPlots(images_list):
             plt.title(f"{titles[i]}\nNoise Level: {images_list[-1]}")
             plt.axis('off')
 
-    plt.show()
+    plt.savefig(f"Results/Figure_{images_list[-1]}")  
+
+    #plt.show()
 
 
